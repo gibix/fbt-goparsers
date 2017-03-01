@@ -13,6 +13,7 @@ var statusFlag *bool
 var contentFlag *bool
 var displayFlag *bool
 var parserRun *bool
+var commitFlag *bool
 
 func init() {
 	parserType = flag.String("parser", "postType", "parser name (postType, etc)")
@@ -21,6 +22,7 @@ func init() {
 	statusFlag = flag.Bool("status", false, "retrive the snippets content")
 	contentFlag = flag.Bool("content", false, "retrive the snippets content")
 	displayFlag = flag.Bool("display", false, "print snippet contents")
+	commitFlag = flag.Bool("commit", false, "commit the parser's result")
 }
 
 func main() {
@@ -38,8 +40,9 @@ func main() {
 			Type: "feed",
 		}),
 		Snippets: []parser.SnippetContent{},
-		Results:  []parser.MyNewContent{}}
+		Parsered:  []parser.SnippetResult{}}
 
+	// get avaible snippets
 	if (*statusFlag) {
 		status := p.SnippetGetStatus()
 
@@ -55,8 +58,11 @@ func main() {
 		}
 	}
 
+	// commits the parser's result
 	if (*parserRun) {
 		_ = p.ParserHandler()
+		if (*commitFlag) {
+			_ = p.CommitResult()
+		}
 	}
-
 }

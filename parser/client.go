@@ -73,6 +73,29 @@ func (p *Parser) SnippetGetContent() error  {
     return err
 }
 
-func (è *Parser) SnippetCommit() error {
-	return nil
+func (p *Parser) CommitResult() error  {
+    body, err := json.Marshal(p.Parsered)
+    if err != nil {
+        log.Println(err)
+    }
+
+    req, err := http.NewRequest("POST", ENDPOINT + "/api/v1/snippet/result", bytes.NewBuffer(body))
+    if err != nil {
+        log.Fatal("NewRequest: ", err)
+    }
+
+    req.Header.Set("Content-Type", "application/json")
+    client := &http.Client{}
+
+    resp, err := client.Do(req)
+    if err != nil {
+        log.Fatal("Do: ", err)
+    }
+    defer resp.Body.Close()
+
+    if err := json.NewDecoder(resp.Body).Decode(&p.Snippets); err != nil {
+	    log.Fatal(err)
+    }
+
+    return err
 }

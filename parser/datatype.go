@@ -33,3 +33,10 @@ type SnippetContentPromotetLink struct {
 	SnippetContent
 	PromotedLink string `json:"promotedLink"`
 }
+
+type SnippetResult struct {
+	SnippetId string `json:"snippetId"`
+	ParserName string `json:"parserName"`
+	ParserKey string `json:"parserKey"`
+	Result Result `json:"result"`
+}
