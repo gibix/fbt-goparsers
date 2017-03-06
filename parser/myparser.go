@@ -8,18 +8,18 @@ type Result struct {
 }
 
 type Parser struct {
-    Profile SnippetProfile
-    Snippets []SnippetContent
-    Parsered []SnippetResult
+	Profile  SnippetProfile
+	Snippets []SnippetContent
+	Parsered []SnippetResult
 }
 
 func (p *Parser) ParserHandler() error {
 	for i, _ := range p.Snippets {
-		p.Parsered[i] = SnippetResult {
-			SnippetId: p.Snippets[i].ObjectId,
+		p.Parsered[i] = SnippetResult{
+			SnippetId:  p.Snippets[i].ObjectId,
 			ParserName: ParserName,
-			ParserKey: ParserKey,
-			Result: Result {
+			ParserKey:  ParserKey,
+			Result: Result{
 				Metadata: "meta"}}
 	}
 

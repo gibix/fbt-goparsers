@@ -2,26 +2,26 @@ package parser
 
 type SnippetProfile struct {
 	Requirements interface{} `json:"requirements"`
-	Since string `json:"since"`
-	Until string `json:"until"`
-	ParserName string `json:"parserName"`
+	Since        string      `json:"since"`
+	Until        string      `json:"until"`
+	ParserName   string      `json:"parserName"`
 }
 
 type SnippetStatus struct {
 	Available int `json:"available"`
-	Limit int `json:"limit"`
+	Limit     int `json:"limit"`
 }
 
 type SnippetContent struct {
-	ObjectId	string	`json:"_id"`
-	SavingTime	string	`json:"savingTime"`
-	Html		string	`json:"html"`
-	Id		string	`json:"Id"`
-	UserId		int	`json:"userId"`
-	TimelineId	string	`json:"timelineId"`
-	ImpressionId	string	`json:"impressionId"`
-	PostType	bool	`json:"postType"`
-	Type		string	`json"type"`
+	ObjectId     string `json:"_id"`
+	SavingTime   string `json:"savingTime"`
+	Html         string `json:"html"`
+	Id           string `json:"Id"`
+	UserId       int    `json:"userId"`
+	TimelineId   string `json:"timelineId"`
+	ImpressionId string `json:"impressionId"`
+	PostType     bool   `json:"postType"`
+	Type         string `json"type"`
 }
 
 type SnippetContentPromotedTitle struct {
@@ -35,8 +35,8 @@ type SnippetContentPromotetLink struct {
 }
 
 type SnippetResult struct {
-	SnippetId string `json:"snippetId"`
+	SnippetId  string `json:"snippetId"`
 	ParserName string `json:"parserName"`
-	ParserKey string `json:"parserKey"`
-	Result Result `json:"result"`
+	ParserKey  string `json:"parserKey"`
+	Result     Result `json:"result"`
 }

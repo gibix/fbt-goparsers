@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
+	"github.com/gibix/fbtrex-cli/parser"
 	"log"
 	"time"
-	"github.com/gibix/fbtrex-cli/parser"
-	"flag"
 )
 
 var parserType *string
@@ -33,35 +33,35 @@ func main() {
 	until := time.Date(2017, time.February, 28, 10, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.511Z")
 
 	// define the query requirements
-	p := parser.Parser {
+	p := parser.Parser{
 		Profile: parser.SnippetInitProfile(*parserType, since, until, struct {
 			Type string `json:"type"`
 		}{
 			Type: "feed",
 		}),
 		Snippets: []parser.SnippetContent{},
-		Parsered:  []parser.SnippetResult{}}
+		Parsered: []parser.SnippetResult{}}
 
 	// get avaible snippets
-	if (*statusFlag) {
-		status := p.SnippetGetStatus()
+	if *statusFlag {
+		available, limit := p.SnippetGetStatus()
 
-		log.Println("Available:\t", status.Available)
-		log.Println("Limit:\t", status.Limit)
+		log.Println("Available:\t", available)
+		log.Println("Limit:\t", limit)
 	}
 
 	// without parser key gets only 5 snippet
-	if (*contentFlag) {
+	if *contentFlag {
 		_ = p.SnippetGetContent()
-		if (*displayFlag) {
+		if *displayFlag {
 			log.Println(p.Snippets)
 		}
 	}
 
 	// commits the parser's result
-	if (*parserRun) {
+	if *parserRun {
 		_ = p.ParserHandler()
-		if (*commitFlag) {
+		if *commitFlag {
 			_ = p.CommitResult()
 		}
 	}
