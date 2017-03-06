@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/gibix/fbtrex-cli/parser"
+	"github.com/spf13/viper"
 	"log"
 	"time"
 )
@@ -28,6 +29,14 @@ func init() {
 func main() {
 	flag.Parse()
 
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		log.Println("No configuration file")
+	}
+
 	// TODO: something better?
 	since := time.Date(2017, time.February, 28, 0, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.511Z")
 	until := time.Date(2017, time.February, 28, 10, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.511Z")
@@ -39,8 +48,11 @@ func main() {
 		}{
 			Type: "feed",
 		}),
-		Snippets: []parser.SnippetContent{},
-		Parsered: []parser.SnippetResult{}}
+		Endpoint:   viper.GetString("endpoint"),
+		Snippets:   []parser.SnippetContent{},
+		Parsered:   []parser.SnippetResult{},
+		ParserName: viper.GetString("parserKey"),
+		ParserKey:  viper.GetString("parserName")}
 
 	// get avaible snippets
 	if *statusFlag {

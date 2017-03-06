@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-const ENDPOINT = "https://facebook.tracking.exposed"
-
 // Simple parser constructor
 func SnippetInitProfile(name string, since string, until string, require interface{}) SnippetProfile {
 	return SnippetProfile{
@@ -26,7 +24,7 @@ func (p *Parser) SnippetGetStatus() (int, int) {
 		log.Println(err)
 	}
 
-	req, err := http.NewRequest("POST", ENDPOINT+"/api/v1/snippet/status", bytes.NewBuffer(body))
+	req, err := http.NewRequest("POST", p.Endpoint+"/api/v1/snippet/status", bytes.NewBuffer(body))
 	if err != nil {
 		log.Fatal("NewRequest: ", err)
 	}
@@ -55,7 +53,7 @@ func (p *Parser) SnippetGetContent() error {
 		log.Println(err)
 	}
 
-	req, err := http.NewRequest("POST", ENDPOINT+"/api/v1/snippet/content", bytes.NewBuffer(body))
+	req, err := http.NewRequest("POST", p.Endpoint+"/api/v1/snippet/content", bytes.NewBuffer(body))
 	if err != nil {
 		log.Fatal("NewRequest: ", err)
 	}
@@ -83,7 +81,7 @@ func (p *Parser) CommitResult() error {
 		log.Println(err)
 	}
 
-	req, err := http.NewRequest("POST", ENDPOINT+"/api/v1/snippet/result", bytes.NewBuffer(body))
+	req, err := http.NewRequest("POST", p.Endpoint+"/api/v1/snippet/result", bytes.NewBuffer(body))
 	if err != nil {
 		log.Fatal("NewRequest: ", err)
 	}

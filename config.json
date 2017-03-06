@@ -1,0 +1,5 @@
+{
+	"endpoint": "https://facebook.tracking.exposed",
+	"parserName": "myParser",
+	"parserKey": "myParserKey"
+}
