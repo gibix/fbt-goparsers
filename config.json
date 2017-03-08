@@ -1,5 +1,7 @@
 {
 	"endpoint": "https://facebook.tracking.exposed",
 	"parserName": "myParser",
-	"parserKey": "myParserKey"
+	"parserKey": "myParserKey",
+	"since": "2017-03-06 9:03:46",
+	"until": "2017-03-08 9:03:46"
 }

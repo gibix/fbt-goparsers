@@ -26,6 +26,8 @@ func init() {
 	commitFlag = flag.Bool("commit", false, "commit the parser's result")
 }
 
+const ISO8601 = "2006-01-02T15:04:05.511Z"
+
 func main() {
 	flag.Parse()
 
@@ -38,12 +40,18 @@ func main() {
 	}
 
 	// TODO: something better?
-	since := time.Date(2017, time.February, 28, 0, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.511Z")
-	until := time.Date(2017, time.February, 28, 10, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.511Z")
+	since, err := time.Parse("2006-01-02 15:04:05", viper.GetString("since"))
+	if err != nil {
+		log.Fatal("Not possible to parse since date:", err)
+	}
+	until, err := time.Parse("2006-01-02 15:04:05", viper.GetString("until"))
+	if err != nil {
+		log.Fatal("Not possible to parse until date:", err)
+	}
 
 	// define the query requirements
 	p := parser.Parser{
-		Profile: parser.SnippetInitProfile(*parserType, since, until, struct {
+		Profile: parser.SnippetInitProfile(*parserType, since.String(), until.String(), struct {
 			Type string `json:"type"`
 		}{
 			Type: "feed",
